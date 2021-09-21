@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Similar Movie Recommender</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  
+  <style>
+  p		{text-align: center}
+  body 	{text-align: center}
+  </style>
+</head>
+
+<body>
+
+ <div class="login">
+	<br>
+	<h1>Find Similar Movies to a Movie</h1>
+	
+	<!-- General info -->
+	<p>Welcome to the <b>Similar Movie Recommender</b>!<br>
+	You can type a movie name and get similar movies.</p><br>
+
+    <!-- Input values movie name and number of recommendations -->
+    <form action="{{ url_for('recommend') }}" method="post" autocomplete="off">
+		<p>Type the movie which you want recommendations for.<br>
+		</p>
+    	<input type="text" name="movie_name" placeholder="Movie Name" />
+		
+		<p>Type number of recommendations.<br>
+		(You can leave it empty to recommend 1 movie)</p>
+        <input type="text" name="n_movies" placeholder="number of movies" /><br><br>
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Recommend!</button>
+    </form>
+
+    <br>
+	
+	<!-- Showing Recommendation Results -->
+    <br>
+	{% if condition == 1 %}
+		<b>Recommended Movies:</b> <br><br>
+		{% for name in movies %}
+			{{ name }}<br>
+		{% endfor %}
+	{% elif condition == 0 %}
+		<b>Movie is not found</b> <br>
+		<b>Similar movie names are:</b> <br><br>
+		{% for name in movies %}
+			{{ name }}<br>
+		{% endfor %}
+	{% elif condition == -1 %}
+		<b>Movie is not found</b> <br>
+		<b>Please try another movie</b> <br>
+	{% endif %}
+	
+	<!-- Showing Errors -->
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		{% for message in messages %}
+		  <br>
+		  {{ message }}
+		{% endfor %}
+	  {% endif %}
+	{% endwith %}
+ </div>
+
+</body>
+</html>
