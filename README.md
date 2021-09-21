@@ -1,2 +1,2 @@
-# movie_recommender_web_app
+# Movie Recommender Web App
 App recommending similar movies to a movie.
